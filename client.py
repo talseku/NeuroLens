@@ -1,13 +1,14 @@
 import asyncio, websockets
 import json, base64
 import cv2
+from facial_emotions import HSEmotionRecognizer
 # from picamera2 import Picamera2
 
-face_detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+face_detector = cv2.CascadeClassifier('lbp_cascade_file.xml')
 
 def detect_faces(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_detector.detectMultiScale(gray, 1.1, 5)
+    faces = face_detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
     
     results = []
     for(x, y, w, h) in faces:
@@ -65,6 +66,13 @@ async def stream_video():
                 #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
                 
                 faces = detect_faces(frame)
+
+                model_name='enet_b0_8_best_vgaf'
+                #model_name='enet_b0_8_va_mtl'
+                fer=HSEmotionRecognizer(model_name=model_name)
+
+                for face in faces:
+                    emotion,scores = fer.predict_emotions(face_img,logits=True)
                 message = json.dumps({
                     "type": "faces",
                     "faces": faces
