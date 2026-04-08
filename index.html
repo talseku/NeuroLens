@@ -1,14 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>WebSocket Chat</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroGlasses</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="homePageStyle.css" />
 </head>
 <body>
-    <h1>WebSocket Chat</h1>
-    <div id="chatbox"></div>
-    <input type="text" id="message" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
+    <header class="navbar">
+        <div class="logo">NeuroGlasses</div>
+    </header>
 
-    <script src="index.js"></script>
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Real-Time Emotion Support</h1>
+                <p>NeuroGlasses helps you recognize facial expressions.</p>
+                <p>Get simple, clear feedback during conversations.</p>
+
+                <a href="#preview" class="get-started-btn">Get Started</a>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-card"></div>
+            </div>
+        </section>
+
+        <section id="preview" class="preview-section">
+            <div class="preview-placeholder">
+                <div class="image-icon">
+                    <div class="image-frame">
+                        <div class="sun"></div>
+                        <div class="mountain"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bottom-section"></section>
+    </main>
 </body>
 </html>
