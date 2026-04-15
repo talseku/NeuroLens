@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comfortaa', sans-serif;
+    color: #111;
+    min-height: 100vh;
+    background: linear-gradient(
+        to bottom,
+        #CCB6C1 20%,
+        #B5B6BD 72%,
+        #9FB5BA 100%
+    );
+}
+
+.signin-navbar {
+    width: 100%;
+    padding: 36px 78px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+}
+
+.signin-logo {
+    font-size: 1.9rem;
+    font-weight: 500;
+    color: #111;
+}
+
+.dashboard-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #111;
+    text-decoration: none;
+}
+
+.dashboard-link:hover {
+    text-decoration: underline;
+}
+
+.signin-page {
+    min-height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+}
+
+.signin-card {
+    width: 410px;
+    background: rgba(232, 224, 228, 0.88);
+    border-radius: 24px;
+    padding: 22px 28px 28px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.signin-card h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.title-line {
+    width: 100%;
+    height: 1px;
+    background: #222;
+    margin-bottom: 18px;
+}
+
+.signin-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signin-form label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+
+.signin-form input[type="email"],
+.signin-form input[type="password"] {
+    width: 100%;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid #a8a2a7;
+    background: #f1f1f1;
+    outline: none;
+    padding: 0 18px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+}
+
+.signin-form input[type="email"]:focus,
+.signin-form input[type="password"]:focus {
+    border-color: #7e7780;
+}
+
+.signin-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0 22px;
+}
+
+.remember-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #222;
+    margin-bottom: 0;
+}
+
+.remember-option input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    accent-color: #777;
+}
+
+.forgot-link {
+    font-size: 0.85rem;
+    color: #222;
+    text-decoration: underline;
+}
+
+.signin-btn {
+    align-self: center;
+    padding: 14px 42px;
+    background: #f3f3f3;
+    color: #111;
+    border: 1px solid #444;
+    border-radius: 10px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.signin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.signup-text {
+    margin-top: 18px;
+    font-size: 0.95rem;
+    color: #222;
+}
+
+.signup-text a {
+    color: #222;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .signin-navbar {
+        padding: 28px 24px 0;
+    }
+
+    .signin-logo {
+        font-size: 1.4rem;
+    }
+
+    .dashboard-link {
+        font-size: 0.9rem;
+    }
+
+    .signin-page {
+        padding: 32px 16px 40px;
+    }
+
+    .signin-card {
+        width: 100%;
+        max-width: 410px;
+        padding: 20px 18px 24px;
+    }
+
+    .signin-card h1 {
+        font-size: 1.25rem;
+    }
+
+    .signin-form label {
+        font-size: 0.95rem;
+    }
+
+    .signin-form input[type="email"],
+    .signin-form input[type="password"] {
+        font-size: 0.9rem;
+    }
+
+    .signin-options {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .signin-btn {
+        font-size: 0.9rem;
+    }
+
+    .signup-text {
+        text-align: center;
+        font-size: 0.9rem;
+    }
+}
