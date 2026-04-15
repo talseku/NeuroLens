@@ -4,7 +4,7 @@ import cv2
 from facial_emotions import HSEmotionRecognizer
 # from picamera2 import Picamera2
 
-face_detector = cv2.CascadeClassifier('lbp_cascade_file.xml')
+face_detector = cv2.CascadeClassifier('lbpcascade_frontalface.xml')
 
 def detect_faces(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -62,6 +62,7 @@ async def stream_video():
                     print("ERROR: can not capture frame")
                     continue
 
+                print("SUCCESS: captured frame")
                 #frame = picam.capture_array()
                 #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
                 
@@ -70,19 +71,23 @@ async def stream_video():
                 model_name='enet_b0_8_best_vgaf'
                 #model_name='enet_b0_8_va_mtl'
                 fer=HSEmotionRecognizer(model_name=model_name)
+                print("SUCCESS: model downloaded")
 
-                for face in faces:
-                    emotion,scores = fer.predict_emotions(face_img,logits=True)
+                emotions, scores = [];
+                for i,face in enumerate(faces):
+                    emotions[i],scores[i] = fer.predict_emotions(face, logits=True)
+
                 message = json.dumps({
-                    "type": "faces",
-                    "faces": faces
+                    "faces": faces,
+                    "emotions": emotions,
+                    "scores": scores
                 })
+
                 await websocket.send(message)                    
                 await asyncio.sleep(0.1)
 
-    # add retry?
     except Exception as e:
-        print("ERROR: can not connect to server")
+        print("ERROR: ...uhoh")
         print(f"Details: {e}")
         return
                 
