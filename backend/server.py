@@ -5,7 +5,7 @@ import websockets
 import json
 import cv2
 import numpy as np
-# from picamera2 import Picamera2
+from picamera2 import Picamera2
 
 EMOTIONS = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
@@ -84,8 +84,8 @@ def predict(img):
 
 
 connected_clients = set()
-# picam2 = Picamera2()
-cap = cv2.VideoCapture(0) 
+picam2 = Picamera2()
+# cap = cv2.VideoCapture(0)
 
 def detect_emotions(frame_bgr):
     small = cv2.resize(frame_bgr, (320, 240))
@@ -130,12 +130,12 @@ async def handler(websocket):
 async def detection_loop():
     loop = asyncio.get_event_loop()
     while True:
-        ret, frame_bgr = cap.read()
-        if not ret:
-            await asyncio.sleep(0.1)
-            continue
-        # frame = picam2.capture_array()
-        # frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        frame = picam2.capture_array()
+        frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        # ret, frame_bgr = cap.read()
+        # if not ret:
+        #     await asyncio.sleep(0.1)
+        #     continue
         faces = await loop.run_in_executor(None, detect_emotions, frame_bgr)
         payload = json.dumps({"faces": faces})
         await broadcast(payload)
@@ -149,14 +149,14 @@ async def main():
     result = predict(test)
     print(f"Model OK - output shape: {result.shape}")
 
-    # config = picam2.create_preview_configuration(
-    #     main={"size": (640, 480), "format": "RGB888"},
-    #     controls={"AeEnable": True, "AwbEnable": True}
-    # )
-    # picam2.configure(config)
-    # picam2.start()
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    config = picam2.create_preview_configuration(
+        main={"size": (640, 480), "format": "RGB888"},
+        controls={"AeEnable": True, "AwbEnable": True}
+    )
+    picam2.configure(config)
+    picam2.start()
+    # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
     print("Camera started.")
     print("WebSocket server running on ws://0.0.0.0:8765")
     async with websockets.serve(handler, "0.0.0.0", 8765):
