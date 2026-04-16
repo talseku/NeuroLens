@@ -1,17 +1,19 @@
 # working server to go on pi
 import asyncio
+import os
 import websockets
 import json
 import cv2
 import numpy as np
-from picamera2 import Picamera2
+# from picamera2 import Picamera2
 
 EMOTIONS = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
-# Load weights
 print("Loading model weights...")
-weights = np.load('/home/neurolens/emotion/emotion_weights.npy', allow_pickle=True).item()
+WEIGHTS_FILE = 'emotion_weights.npy'
+weights = np.load(os.path.join(os.path.dirname(__file__), WEIGHTS_FILE), allow_pickle=True).item()
 
+# Retrieve weights list [kernel, bias] or [gamma, beta, mean, var] for a layer by partial name match
 def get_weights(layer_name):
     for k, v in weights.items():
         if layer_name in k:
@@ -57,18 +59,22 @@ def maxpool2d(x):
 def predict(img):
     x = img.astype(np.float32) / 255.0
     x = x[:,:,np.newaxis]
+
     x = conv2d(x, get_weights('conv2d'))
     x = batch_norm(x, get_weights('batch_normalization'))
     x = relu(x)
     x = maxpool2d(x)
+
     x = conv2d(x, get_weights('conv2d_1'))
     x = batch_norm(x, get_weights('batch_normalization_1'))
     x = relu(x)
     x = maxpool2d(x)
+
     x = conv2d(x, get_weights('conv2d_2'))
     x = batch_norm(x, get_weights('batch_normalization_2'))
     x = relu(x)
     x = maxpool2d(x)
+
     x = x.flatten()
     w, b = get_weights('dense')
     x = relu(np.dot(x, w) + b)
@@ -78,21 +84,24 @@ def predict(img):
 
 
 connected_clients = set()
-picam2 = Picamera2()
+# picam2 = Picamera2()
+cap = cv2.VideoCapture(0) 
 
 def detect_emotions(frame_bgr):
     small = cv2.resize(frame_bgr, (320, 240))
     gray_small = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
-    face_cascade = cv2.CascadeClassifier('/home/neurolens/emotion/haarcascade_frontalface_default.xml')
+    face_cascade = cv2.CascadeClassifier(os.path.join(os.path.dirname(__file__), 'haarcascade_frontalface_default.xml'))
     faces = face_cascade.detectMultiScale(gray_small, 1.1, 5, minSize=(24,24))
     results = []
     gray_full = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2GRAY)
     for (x, y, w, h) in faces:
-        x, y, w, h = x*2, y*2, w*2, h*2
+        x, y, w, h = x*2, y*2, w*2, h*2  # scale coords back to 640x480
+
         pad = int(0.2 * w)
         x1, y1 = max(x-pad, 0), max(y-pad, 0)
         x2, y2 = min(x+w+pad, 640), min(y+h+pad, 480)
         face_img = gray_full[y1:y2, x1:x2]
+
         clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
         face_img = clahe.apply(face_img)
         face_img = cv2.resize(face_img, (48, 48))
@@ -121,8 +130,12 @@ async def handler(websocket):
 async def detection_loop():
     loop = asyncio.get_event_loop()
     while True:
-        frame = picam2.capture_array()
-        frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        ret, frame_bgr = cap.read()
+        if not ret:
+            await asyncio.sleep(0.1)
+            continue
+        # frame = picam2.capture_array()
+        # frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         faces = await loop.run_in_executor(None, detect_emotions, frame_bgr)
         payload = json.dumps({"faces": faces})
         await broadcast(payload)
@@ -136,12 +149,14 @@ async def main():
     result = predict(test)
     print(f"Model OK - output shape: {result.shape}")
 
-    config = picam2.create_preview_configuration(
-        main={"size": (640, 480), "format": "RGB888"},
-        controls={"AeEnable": True, "AwbEnable": True}
-    )
-    picam2.configure(config)
-    picam2.start()
+    # config = picam2.create_preview_configuration(
+    #     main={"size": (640, 480), "format": "RGB888"},
+    #     controls={"AeEnable": True, "AwbEnable": True}
+    # )
+    # picam2.configure(config)
+    # picam2.start()
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
     print("Camera started.")
     print("WebSocket server running on ws://0.0.0.0:8765")
     async with websockets.serve(handler, "0.0.0.0", 8765):

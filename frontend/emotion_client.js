@@ -28,7 +28,7 @@ function connect() {
     text.textContent = 'Connecting…';
     dot.className = 'status-dot';
 
-    socket = new WebSocket('ws://neurolens.local:8765');
+    socket = new WebSocket('ws://localhost:8765');
 
     socket.onopen = () => {
         text.textContent = 'Connected';
