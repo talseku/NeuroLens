@@ -1,3 +1,4 @@
+# working server to go on pi
 import asyncio
 import websockets
 import json

@@ -1,0 +1,64 @@
+.dashboard {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+/* RING */
+.emotion-ring {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 6px solid var(--accent, #aaa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-inner {
+    text-align: center;
+}
+
+.emoji {
+    font-size: 2rem;
+}
+
+.percent {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* LABEL */
+.dominant-label {
+    margin-top: 12px;
+    font-size: 1.2rem;
+    color: #444;
+    text-transform: capitalize;
+}
+
+/* OTHER EMOTIONS */
+.other-section {
+    margin-top: 30px;
+}
+
+.emotion-pill {
+    margin: 10px auto;
+    width: 260px;
+    background: rgba(255,255,255,0.6);
+    padding: 12px 16px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
