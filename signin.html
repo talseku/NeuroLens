@@ -6,11 +6,17 @@
     <title>NeuroGlasses - Sign In</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="signin.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="contrast.css" />
+    <script src="contrast.js"></script>
 </head>
 <body>
     <header class="signin-navbar">
         <div class="signin-logo">NeuroGlasses</div>
-        <a href="index.html" class="dashboard-link"><span>←</span> DASHBOARD</a>
+        <a href="index.html" class="dashboard-link">
+            <i data-lucide="arrow-left" class="nav-icon"></i>
+            <span>DASHBOARD</span>
+        </a>
     </header>
 
     <main class="signin-page">
@@ -18,7 +24,7 @@
             <h1>Sign in</h1>
             <div class="title-line"></div>
 
-            <form class="signin-form">
+            <form class="signin-form" onsubmit="goToHome(event)">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" />
 
@@ -43,5 +49,14 @@
             <a href="signup.html">Sign up</a>
         </p>
     </main>
+
+    <script>
+        lucide.createIcons();
+
+        function goToHome(event) {
+            event.preventDefault();
+            window.location.href = "home.html";
+        }
+    </script>
 </body>
 </html>

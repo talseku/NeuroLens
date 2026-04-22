@@ -21,7 +21,7 @@ body {
     padding: 36px 78px 0;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     background: transparent;
 }
 
@@ -32,17 +32,28 @@ body {
 }
 
 .dashboard-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 1.1rem;
+    gap: 10px;
+    font-size: 1.15rem;
     font-weight: 500;
     color: #111;
     text-decoration: none;
+    line-height: 1;
+    position: relative;
 }
 
 .dashboard-link:hover {
     text-decoration: underline;
+}
+
+.nav-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    flex-shrink: 0;
+    position: relative;
+    top: 0px;
 }
 
 .signin-page {
@@ -170,6 +181,7 @@ body {
 @media (max-width: 600px) {
     .signin-navbar {
         padding: 28px 24px 0;
+        align-items: center;
     }
 
     .signin-logo {
@@ -178,6 +190,7 @@ body {
 
     .dashboard-link {
         font-size: 0.9rem;
+        top: 0;
     }
 
     .signin-page {
