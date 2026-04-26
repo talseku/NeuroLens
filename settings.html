@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroGlasses - Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="settings.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="navbar">
+        <a href="home.html" class="logo">NeuroGlasses</a>
+
+        <nav class="nav-links">
+            <a href="home.html" class="home-link">
+                <i data-lucide="home" class="nav-icon"></i>
+                <span>HOME</span>
+            </a>
+
+            <a href="settings.html" class="settings-link">
+                <i data-lucide="settings" class="nav-icon"></i>
+                <span>SETTINGS</span>
+            </a>
+        </nav>
+    </header>
+
+    <main class="settings-page">
+        <h1 class="page-title">Settings</h1>
+        <p class="page-subtitle">Manage your preferences</p>
+
+        <!-- DISPLAY ONLY -->
+        <section class="settings-section">
+            <h2 class="section-title">Display</h2>
+
+            <div class="settings-card display-card">
+                <div class="display-group">
+                    <p class="display-label">High Contrast Mode</p>
+
+                    <div class="button-row two-buttons">
+                        <button class="option-btn active-btn">Off</button>
+                        <button class="option-btn">On</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <button class="logout-btn" onclick="logout()">Log Out</button>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const groups = document.querySelectorAll('.button-row');
+
+        groups.forEach(group => {
+            const buttons = group.querySelectorAll('.option-btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    buttons.forEach(btn => btn.classList.remove('active-btn'));
+                    button.classList.add('active-btn');
+                });
+            });
+        });
+
+        const contrastButtons = document.querySelectorAll('.two-buttons .option-btn');
+
+        function applyHighContrastSetting(mode) {
+            if (mode === 'On') {
+                document.body.classList.add('high-contrast');
+            } else {
+                document.body.classList.remove('high-contrast');
+            }
+
+            localStorage.setItem('highContrastMode', mode);
+        }
+
+        contrastButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const selectedMode = button.textContent.trim();
+                applyHighContrastSetting(selectedMode);
+            });
+        });
+
+        const savedContrastMode = localStorage.getItem('highContrastMode') || 'Off';
+
+        contrastButtons.forEach(button => {
+            button.classList.remove('active-btn');
+            if (button.textContent.trim() === savedContrastMode) {
+                button.classList.add('active-btn');
+            }
+        });
+
+        applyHighContrastSetting(savedContrastMode);
+
+        function logout() {
+        // optional: clear saved settings (like contrast)
+        localStorage.removeItem('highContrastMode');
+
+        // redirect to sign in page
+        window.location.href = "signin.html";
+        }
+    </script>
+</body>
+</html>

@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Comfortaa', sans-serif;
     color: #111;
@@ -13,27 +17,33 @@ body {
         #B5B6BD 72%,
         #9FB5BA 100%
     );
+    min-height: 100vh;
 }
 
 /* NAVBAR */
 .navbar {
     width: 100%;
-    padding: 32px 64px;
+    padding: 32px 64px 0;
     background: transparent;
 }
 
-.logo {
+.logo,
+.logo:visited,
+.logo:hover,
+.logo:active {
     font-size: 2rem;
     font-weight: 500;
+    color: #111;
+    text-decoration: none;
 }
 
 /* HERO SECTION */
 .hero {
-    min-height: 520px;
+    min-height: calc(100vh - 32px);
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 30px 120px 0px;
+    align-items: center;
+    padding: 0 120px 40px;
     gap: 80px;
     background: transparent;
     overflow: hidden;
@@ -43,7 +53,6 @@ body {
     max-width: 620px;
     display: flex;
     flex-direction: column;
-    margin-top: 85px;
 }
 
 .hero-text h1 {
@@ -58,7 +67,7 @@ body {
 .hero-text p {
     font-size: 1.18rem;
     line-height: 1.8;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     color: #2f2f2f;
     max-width: 610px;
 }
@@ -91,8 +100,7 @@ body {
     flex-shrink: 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    margin-top: 28px;
+    align-items: center;
 }
 
 .hero-card {
@@ -105,7 +113,7 @@ body {
 
 /* PREVIEW SECTION */
 .preview-section {
-    height: 480px;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -156,18 +164,16 @@ body {
 
 /* BOTTOM SECTION */
 .bottom-section {
-    height: 520px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: transparent;
 }
 
-/* SMOOTH SCROLL */
-html {
-    scroll-behavior: smooth;
-}
-
-/* RESPONSIVE DESIGN */
 @media (max-width: 1100px) {
     .hero {
+        min-height: auto;
         flex-direction: column;
         text-align: center;
         padding: 40px 40px 80px;
@@ -179,10 +185,12 @@ html {
 
     .hero-text h1 {
         font-size: 3rem;
+        white-space: normal;
     }
 
     .hero-text p {
         font-size: 1.3rem;
+        max-width: 100%;
     }
 
     .hero-card {
@@ -191,8 +199,7 @@ html {
     }
 
     .navbar {
-        width: 100%;
-        padding: 32px 64px 0px;
+        padding: 32px 64px 0;
         background: transparent;
     }
 }
@@ -217,11 +224,8 @@ html {
         border-radius: 36px;
     }
 
-    .preview-section {
-        height: 360px;
-    }
-
+    .preview-section,
     .bottom-section {
-        height: 360px;
+        min-height: 100vh;
     }
 }

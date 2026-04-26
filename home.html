@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroGlasses - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="contrast.css" />
+    <script src="contrast.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <a href="home.html" class="logo">NeuroGlasses</a>
+
+        <nav class="nav-links">
+            <a href="home.html" class="active-link home-link">
+                <i data-lucide="home" class="nav-icon"></i>
+                <span>HOME</span>
+            </a>
+            <a href="settings.html" class="settings-link">
+                <i data-lucide="settings" class="nav-icon"></i>
+                <span>SETTINGS</span>
+            </a>
+        </nav>
+    </header>
+
+    <main class="home-page">
+        <h1 class="page-title">Home</h1>
+        <p class="page-subtitle">Overview of your current emotion</p>
+
+        <section class="main-emotion-section">
+            <div class="emotion-circle">
+                <div class="emotion-circle-content">
+                    <span id="emotionFace" class="emotion-face"></span>
+                    <span id="emotionPercent" class="emotion-percent"></span>
+                </div>
+            </div>
+
+            <p id="emotionLabel" class="emotion-label"></p>
+        </section>
+
+        <section class="emotion-list-section">
+            <h2 class="other-emotions-title">Other Emotions</h2>
+
+            <div class="emotion-list">
+                <div class="emotion-card">
+                    <div class="emotion-info">
+                        <span id="secondaryEmotion1Emoji" class="secondary-emoji"></span>
+                        <span id="secondaryEmotion1Name"></span>
+                    </div>
+                    <span id="secondaryEmotion1Percent"></span>
+                </div>
+
+                <div class="emotion-card">
+                    <div class="emotion-info">
+                        <span id="secondaryEmotion2Emoji" class="secondary-emoji"></span>
+                        <span id="secondaryEmotion2Name"></span>
+                    </div>
+                    <span id="secondaryEmotion2Percent"></span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="home.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
