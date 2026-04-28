@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NeuroGlasses - Settings</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/settings.css" />
+    <link rel="stylesheet" href="../styles/contrast.css" />
+
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
     <header class="navbar">
         <a href="home.html" class="logo">NeuroGlasses</a>
@@ -29,7 +33,6 @@
         <h1 class="page-title">Settings</h1>
         <p class="page-subtitle">Manage your preferences</p>
 
-        <!-- DISPLAY ONLY -->
         <section class="settings-section">
             <h2 class="section-title">Display</h2>
 
@@ -38,8 +41,8 @@
                     <p class="display-label">High Contrast Mode</p>
 
                     <div class="button-row two-buttons">
-                        <button class="option-btn active-btn">Off</button>
-                        <button class="option-btn">On</button>
+                        <button class="option-btn active-btn" data-contrast="off">Off</button>
+                        <button class="option-btn" data-contrast="on">On</button>
                     </div>
                 </div>
             </div>
@@ -48,58 +51,38 @@
         <button class="logout-btn" onclick="logout()">Log Out</button>
     </main>
 
+    <script src="../contrast.js"></script>
+
     <script>
         lucide.createIcons();
 
-        const groups = document.querySelectorAll('.button-row');
+        const contrastButtons = document.querySelectorAll("[data-contrast]");
 
-        groups.forEach(group => {
-            const buttons = group.querySelectorAll('.option-btn');
+        function updateButtons() {
+            const saved = localStorage.getItem("highContrastMode") || "off";
 
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    buttons.forEach(btn => btn.classList.remove('active-btn'));
-                    button.classList.add('active-btn');
-                });
+            contrastButtons.forEach(btn => {
+                btn.classList.remove("active-btn");
+
+                if (btn.dataset.contrast === saved) {
+                    btn.classList.add("active-btn");
+                }
             });
-        });
-
-        const contrastButtons = document.querySelectorAll('.two-buttons .option-btn');
-
-        function applyHighContrastSetting(mode) {
-            if (mode === 'On') {
-                document.body.classList.add('high-contrast');
-            } else {
-                document.body.classList.remove('high-contrast');
-            }
-
-            localStorage.setItem('highContrastMode', mode);
         }
 
-        contrastButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const selectedMode = button.textContent.trim();
-                applyHighContrastSetting(selectedMode);
+        contrastButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const mode = btn.dataset.contrast;
+                setContrastMode(mode);
+                updateButtons();
             });
         });
 
-        const savedContrastMode = localStorage.getItem('highContrastMode') || 'Off';
-
-        contrastButtons.forEach(button => {
-            button.classList.remove('active-btn');
-            if (button.textContent.trim() === savedContrastMode) {
-                button.classList.add('active-btn');
-            }
-        });
-
-        applyHighContrastSetting(savedContrastMode);
+        updateButtons();
 
         function logout() {
-        // optional: clear saved settings (like contrast)
-        localStorage.removeItem('highContrastMode');
-
-        // redirect to sign in page
-        window.location.href = "signin.html";
+            localStorage.removeItem("highContrastMode");
+            window.location.href = "signin.html";
         }
     </script>
 </body>

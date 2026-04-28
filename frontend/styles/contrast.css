@@ -1,0 +1,55 @@
+body.high-contrast {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+/* Text */
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast p,
+body.high-contrast span,
+body.high-contrast label,
+body.high-contrast a {
+    color: #fff !important;
+}
+
+/* Cards */
+body.high-contrast .signup-card,
+body.high-contrast .signin-card,
+body.high-contrast .settings-card,
+body.high-contrast .emotion-card,
+body.high-contrast .hero-card {
+    background: #111 !important;
+    border: 2px solid #fff !important;
+    box-shadow: none !important;
+}
+
+/* Inputs */
+body.high-contrast input {
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+/* Buttons */
+body.high-contrast button,
+body.high-contrast .get-started-btn {
+    background: #fff !important;
+    color: #000 !important;
+    border: 2px solid #fff !important;
+    box-shadow: none !important;
+}
+
+/* Active toggle button */
+body.high-contrast .active-btn {
+    background: #ffd700 !important;
+    color: #000 !important;
+}
+
+/* Navbar links */
+body.high-contrast .logo,
+body.high-contrast .nav-links a,
+body.high-contrast .dashboard-link {
+    color: #fff !important;
+}
