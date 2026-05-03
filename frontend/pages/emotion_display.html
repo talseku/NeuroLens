@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroGlasses — Live</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            color: #111;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #CCB6C1 20%, #B5B6BD 72%, #9FB5BA 100%);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            width: 100%;
+            padding: 28px 52px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo { font-size: 1.6rem; font-weight: 500; }
+
+        .back-link {
+            font-size: 0.9rem;
+            color: #444;
+            text-decoration: none;
+            opacity: 0.7;
+        }
+        .back-link:hover { opacity: 1; }
+
+        /* STATUS */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 52px 24px;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #aaa;
+            flex-shrink: 0;
+        }
+        .status-dot.connected    { background: #5cb85c; }
+        .status-dot.disconnected { background: #d9534f; }
+
+        #retryBtn {
+            padding: 4px 14px;
+            background: #f3f3f3;
+            border: 1px solid #888;
+            border-radius: 6px;
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: none;
+        }
+        #retryBtn:hover { background: #e0e0e0; }
+
+        /* MAIN GRID */
+        .faces-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            padding: 0 52px 52px;
+            justify-content: center;
+        }
+
+        /* FACE CARD */
+        .face-card {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(6px);
+            border-radius: 24px;
+            padding: 28px 32px;
+            width: 340px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            border-top: 4px solid var(--accent, #aaa);
+        }
+
+        .face-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .face-emoji { font-size: 3rem; line-height: 1; }
+
+        .face-label {
+            font-size: 0.8rem;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .face-emotion {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--accent, #111);
+            text-transform: capitalize;
+        }
+
+        /* SCORE BARS */
+        .score-list { display: flex; flex-direction: column; gap: 8px; }
+
+        .score-row {
+            display: grid;
+            grid-template-columns: 72px 1fr 44px;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .score-label {
+            font-size: 0.78rem;
+            color: #555;
+            text-transform: capitalize;
+        }
+
+        .score-bar-track {
+            height: 8px;
+            background: rgba(0,0,0,0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .score-pct {
+            font-size: 0.78rem;
+            color: #555;
+            text-align: right;
+        }
+
+        /* DASHBOARD (injected by buildDashboard) */
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 12px 0 40px;
+            width: 100%;
+        }
+
+        .dashboard .title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .dashboard .subtitle {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Circular ring around dominant emotion */
+        .emotion-ring {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 8px solid var(--accent, #aaa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.45);
+            box-shadow: 0 0 32px color-mix(in srgb, var(--accent, #aaa) 30%, transparent);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .ring-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .ring-inner .emoji   { font-size: 3.2rem; line-height: 1; }
+        .ring-inner .percent { font-size: 1.1rem; font-weight: 600; color: #333; }
+
+        .dominant-label {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            color: var(--accent, #111);
+            transition: color 0.4s ease;
+        }
+
+        /* Secondary emotions */
+        .other-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .other-section h3 {
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #777;
+        }
+
+        .emotion-pill {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            width: 220px;
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* EMPTY STATE */
+        #emptyState {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 80px 0;
+            opacity: 0.4;
+        }
+
+        #emptyState .empty-icon { font-size: 3.5rem; }
+        #emptyState p { font-size: 1rem; color: #444; }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">NeuroGlasses</div>
+        <a href="../index.html" class="back-link">← Home</a>
+    </header>
+
+    <div class="status-bar">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Connecting…</span>
+        <button id="retryBtn" onclick="connect()">Retry</button>
+    </div>
+
+    <div class="faces-grid" id="facesContainer"></div>
+
+    <div id="emptyState">
+        <span class="empty-icon">👤</span>
+        <p>No faces detected</p>
+    </div>
+
+    <script src="../emotion_client.js"></script>
+</body>
+</html>

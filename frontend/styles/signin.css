@@ -6,8 +6,8 @@
 
 body {
     font-family: 'Comfortaa', sans-serif;
-    color: #111;
     min-height: 100vh;
+    color: #111;
     background: linear-gradient(
         to bottom,
         #CCB6C1 20%,
@@ -16,92 +16,110 @@ body {
     );
 }
 
-.signin-navbar {
+.navbar {
     width: 100%;
-    padding: 36px 78px 0;
+    padding: 36px 76px 0;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    background: transparent;
 }
 
-.signin-logo {
+.logo {
     font-size: 1.9rem;
     font-weight: 500;
     color: #111;
+    text-decoration: none;
 }
 
-.dashboard-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+.nav-links {
+    display: flex;
+    align-items: baseline;
+    gap: 22px;
+    margin-top: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #111;
     font-size: 1.15rem;
     font-weight: 500;
-    color: #111;
-    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     line-height: 1;
-    position: relative;
 }
 
-.dashboard-link:hover {
-    text-decoration: underline;
+.home-link,
+.settings-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .nav-icon {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     stroke-width: 2;
     flex-shrink: 0;
     position: relative;
-    top: 0px;
+    top: -1px;
 }
 
-.signin-page {
-    min-height: calc(100vh - 90px);
+.settings-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: 80px;
+    padding-top: 70px;
+    padding-bottom: 60px;
 }
 
-.signin-card {
-    width: 410px;
+.page-title {
+    font-size: 1.9rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 38px;
+    color: #111;
+}
+
+
+.settings-section {
+    width: 680px;
+    margin-bottom: 34px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.settings-card {
+    width: 100%;
     background: rgba(232, 224, 228, 0.88);
     border-radius: 24px;
-    padding: 22px 28px 28px;
+    padding: 24px 22px 24px;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-.signin-card h1 {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: #111;
-    margin-bottom: 10px;
-}
-
-.title-line {
-    width: 100%;
-    height: 1px;
-    background: #222;
-    margin-bottom: 18px;
-}
-
-.signin-form {
+.account-card {
     display: flex;
     flex-direction: column;
 }
 
-.signin-form label {
+.account-card label {
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 8px;
     color: #1a1a1a;
 }
 
-.signin-form input[type="email"],
-.signin-form input[type="password"] {
+.account-card input {
     width: 100%;
     height: 38px;
     border-radius: 999px;
@@ -111,44 +129,16 @@ body {
     padding: 0 18px;
     font-family: 'Comfortaa', sans-serif;
     font-size: 0.95rem;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
 }
 
-.signin-form input[type="email"]:focus,
-.signin-form input[type="password"]:focus {
+.account-card input:focus {
     border-color: #7e7780;
 }
 
-.signin-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 4px 0 22px;
-}
-
-.remember-option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    color: #222;
-    margin-bottom: 0;
-}
-
-.remember-option input[type="checkbox"] {
-    width: 14px;
-    height: 14px;
-    accent-color: #777;
-}
-
-.forgot-link {
-    font-size: 0.85rem;
-    color: #222;
-    text-decoration: underline;
-}
-
-.signin-btn {
+.account-btn {
     align-self: center;
+    margin-top: 8px;
     padding: 14px 42px;
     background: #f3f3f3;
     color: #111;
@@ -159,76 +149,170 @@ body {
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    text-decoration: none;
 }
 
-.signin-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.display-group {
+    display: flex;
+    flex-direction: column;
 }
 
-.signup-text {
-    margin-top: 18px;
+.display-label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.button-row {
+    display: flex;
+    gap: 12px;
+}
+
+.three-buttons .option-btn {
+    flex: 1;
+}
+
+.two-buttons .option-btn {
+    flex: 1;
+}
+
+.option-btn {
+    height: 58px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background: #f3f3f3;
+    color: #111;
+    font-family: 'Comfortaa', sans-serif;
     font-size: 0.95rem;
-    color: #222;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
-.signup-text a {
-    color: #222;
-    text-decoration: underline;
+.active-btn {
+    background: #000;
+    color: #fff;
 }
 
-@media (max-width: 600px) {
-    .signin-navbar {
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #444;
+    margin: 18px 0 20px;
+}
+
+.logout-btn {
+    margin-top: 6px;
+    width: 408px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background: #f3f3f3;
+    color: #111;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 760px) {
+    .navbar {
         padding: 28px 24px 0;
-        align-items: center;
-    }
-
-    .signin-logo {
-        font-size: 1.4rem;
-    }
-
-    .dashboard-link {
-        font-size: 0.9rem;
-        top: 0;
-    }
-
-    .signin-page {
-        padding: 32px 16px 40px;
-    }
-
-    .signin-card {
-        width: 100%;
-        max-width: 410px;
-        padding: 20px 18px 24px;
-    }
-
-    .signin-card h1 {
-        font-size: 1.25rem;
-    }
-
-    .signin-form label {
-        font-size: 0.95rem;
-    }
-
-    .signin-form input[type="email"],
-    .signin-form input[type="password"] {
-        font-size: 0.9rem;
-    }
-
-    .signin-options {
         flex-direction: column;
-        gap: 10px;
+        gap: 16px;
         align-items: flex-start;
     }
 
-    .signin-btn {
-        font-size: 0.9rem;
+    .nav-links {
+        gap: 16px;
     }
 
-    .signup-text {
-        text-align: center;
-        font-size: 0.9rem;
+    .settings-page {
+        padding: 40px 16px 50px;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+        margin-bottom: 36px;
+    }
+
+    .settings-section {
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .settings-card {
+        padding: 20px 18px 22px;
+    }
+
+    .button-row {
+        flex-direction: column;
+    }
+
+    .logout-btn {
+        width: 100%;
+        max-width: 408px;
+    }
+
+    body.high-contrast {
+    background: #000;
+    color: #fff;
+    }
+
+    body.high-contrast .logo,
+    body.high-contrast .nav-links a,
+    body.high-contrast .page-title,
+    body.high-contrast .page-subtitle,
+    body.high-contrast .section-title,
+    body.high-contrast .display-label,
+    body.high-contrast .account-card label,
+    body.high-contrast .signin-text,
+    body.high-contrast .signup-text {
+        color: #fff;
+    }
+
+    body.high-contrast .settings-card,
+    body.high-contrast .emotion-card,
+    body.high-contrast .signup-card,
+    body.high-contrast .signin-card {
+        background: #111;
+        border: 2px solid #fff;
+        box-shadow: none;
+    }
+
+    body.high-contrast input {
+        background: #000;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+
+    body.high-contrast .option-btn,
+    body.high-contrast .account-btn,
+    body.high-contrast .logout-btn,
+    body.high-contrast .signin-btn,
+    body.high-contrast .create-account-btn,
+    body.high-contrast .get-started-btn {
+        background: #fff;
+        color: #000;
+        border: 2px solid #fff;
+        box-shadow: none;
+    }
+
+    body.high-contrast .active-btn {
+        background: #ffd700;
+        color: #000;
+        border: 2px solid #ffd700;
+    }
+
+    body.high-contrast .divider,
+    body.high-contrast .title-line {
+        background: #fff;
+    }
+
+    body.high-contrast .nav-icon {
+        color: #fff;
     }
 }

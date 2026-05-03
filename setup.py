@@ -4,7 +4,9 @@ requirements = [
     'numpy',
     'opencv-python',
     'onnx',
-    'onnxruntime'
+    'onnxruntime',
+    'websockets',
+    # Install picamera2 on Raspberry Pi OS with: sudo apt install -y python3-picamera2
 ]
 setup(
     name='hsemotion-onnx',

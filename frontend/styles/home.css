@@ -257,3 +257,56 @@ body {
         font-size: 1.3rem;
     }
 }
+/* LIVE CONNECTION STATUS */
+.status-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 24px 76px 0;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #aaa;
+    flex-shrink: 0;
+}
+
+.status-dot.connected { background: #5cb85c; }
+.status-dot.disconnected { background: #d9534f; }
+
+#retryBtn {
+    padding: 4px 14px;
+    background: #f3f3f3;
+    border: 1px solid #888;
+    border-radius: 6px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: none;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 80px 0;
+    opacity: 0.45;
+}
+
+.empty-icon { font-size: 3.5rem; }
+
+.emotion-disgust { border-color: #6fcf97; }
+.emotion-fear { border-color: #8b7cf6; }
+.emotion-surprise { border-color: #ff9f68; }
+
+@media (max-width: 700px) {
+    .status-bar {
+        padding: 20px 24px 0;
+    }
+}

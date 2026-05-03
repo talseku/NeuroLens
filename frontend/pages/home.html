@@ -28,10 +28,22 @@
         </nav>
     </header>
 
+    <div class="status-bar">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Connecting…</span>
+        <button id="retryBtn" type="button" onclick="connect()">Retry</button>
+    </div>
+
     <main class="home-page">
         <h1 class="page-title">Home</h1>
         <p class="page-subtitle">Overview of your current emotion</p>
 
+        <div id="emptyState" class="empty-state">
+            <span class="empty-icon">👤</span>
+            <p>No faces detected</p>
+        </div>
+
+        <div id="emotionContent" style="display: none;">
         <section class="main-emotion-section">
             <div class="emotion-circle">
                 <div class="emotion-circle-content">
@@ -64,6 +76,7 @@
                 </div>
             </div>
         </section>
+        </div>
     </main>
 
     <script src="../home.js"></script>
