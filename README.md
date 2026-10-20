@@ -1,23 +1,14 @@
-<div align="center">
+<h1 align="center">👓 NeuroLens 👓</h1>
 
-# 👓 NeuroLens
+<p align="center">
+Facial expressions are a small part of a conversation, but they can carry a lot of meaning. For neurodivergent individuals, especially younger users, interpreting those cues while following a conversation can be challenging. NeuroLens is an assistive smart glasses project that uses computer vision to make facial expressions easier to recognize. A Raspberry Pi camera captures faces, an emotion recognition model analyzes their expressions, and a companion web app presents the results through simple emojis, colors, and percentage scores.
+</p>
 
-A smart glasses companion that turns facial expressions into simple, live visual cues.<br>
-Designed with neurodivergent people, especially younger users, in mind.
-
-**Python** &nbsp; / &nbsp; **OpenCV** &nbsp; / &nbsp; **Raspberry Pi** &nbsp; / &nbsp; **WebSockets**
-
-</div>
+<p align="center">
+<strong>Completed Project</strong> · Assistive Technology · Facial Expression Recognition
+</p>
 
 ---
-
-## About the Project 🌱
-
-Conversations move quickly. A smile, a raised eyebrow, or a change in expression can carry meaning before anyone says a word. Those cues can be difficult to interpret, especially while keeping up with the conversation itself.
-
-NeuroLens explores how a camera module mounted on glasses and a companion app can make those cues easier to follow. The Raspberry Pi processes camera frames and sends facial expression estimates to a browser, where an emoji, a color, and a percentage make the results easy to glance at.
-
-The project is a prototype. Its scores describe the model's interpretation of a facial expression; they don't establish what someone actually feels.
 
 ## Features ✅
 
@@ -31,7 +22,7 @@ The model recognizes seven expression categories:
 
 **Happy · Sad · Angry · Fear · Surprise · Disgust · Neutral**
 
-The interface currently carries the name **NeuroGlasses**. Both live dashboards display the first face returned by the detector.
+---
 
 ## How It Works 🔍
 
@@ -52,17 +43,48 @@ Browser dashboard
 
 Face detection uses OpenCV's Haar cascade. Each detected face is cropped, contrast-adjusted, and resized before passing through a convolutional neural network implemented with NumPy. The server sends expression labels, percentage scores, and face coordinates as JSON; the current stream carries results rather than camera images.
 
+---
+
 ## Tech Stack 💻
 
-| Area | Technologies |
-| :--- | :--- |
-| **Frontend** | HTML, CSS, JavaScript |
-| **Vision & Inference** | Python, OpenCV, NumPy |
-| **Hardware** | Raspberry Pi, Picamera2-compatible camera |
-| **Live Communication** | WebSockets, JSON |
-| **Interface Design** | Comfortaa typography, Lucide icons, high-contrast theme |
+<details>
+<summary><strong>📱 Frontend</strong></summary>
 
-The frontend uses a soft rose-to-blue palette and runs without a build step.
+- **HTML & CSS** → Landing page, account screens, live dashboards, and settings.
+- **JavaScript** → Live dashboard updates and saved display preferences.
+- **WebSockets** → Receives expression results from the Pi without refreshing the page.
+
+</details>
+
+<details>
+<summary><strong>👀 Vision & Recognition</strong></summary>
+
+- **Python** → Camera processing and the WebSocket server.
+- **OpenCV** → Haar cascade face detection and image preprocessing.
+- **NumPy** → Convolutional neural network inference and expression scores.
+
+</details>
+
+<details>
+<summary><strong>🔌 Hardware</strong></summary>
+
+- **Raspberry Pi** → Runs face detection and emotion inference.
+- **Camera Module** → Captures the faces in view of the glasses.
+- **Picamera2** → Connects the camera to the Python backend.
+
+</details>
+
+<details>
+<summary><strong>🎨 Interface Design</strong></summary>
+
+- **Comfortaa** → Rounded typography throughout the app.
+- **Lucide** → Navigation icons.
+- **CSS** → Rose-to-blue backgrounds, emotion colors, and responsive layouts.
+- **High-Contrast Theme** → An optional display setting saved in the browser.
+
+</details>
+
+---
 
 ## Project Structure 📂
 
@@ -93,9 +115,14 @@ NeuroLens/
 
 </details>
 
+---
+
 ## Getting Started 🚀
 
 For live detection, you'll need a Raspberry Pi running Raspberry Pi OS, a camera supported by Picamera2, and a browser on the same network.
+
+<details>
+<summary><strong>🔧 Run on the Raspberry Pi</strong></summary>
 
 ### 1. Add the model
 
@@ -137,6 +164,26 @@ Open `http://<raspberry-pi-ip>:8080/pages/home.html` in your browser, replacing 
 
 The dashboard connects to the same host on port `8765`. The landing page is at `/pages/index.html`, and the alternate live display is at `/pages/emotion_display.html`.
 
-### Preview without the hardware
+</details>
 
-You can serve the frontend on your computer using the same HTTP server command. To preview the Home dashboard without a Pi or model, set `DEMO_MODE` to `true` in `frontend/home.js`, then open `http://localhost:8080/pages/home.html`. Demo mode generates random scores for layout previews. Set it back to `false` for live detection.
+<details>
+<summary><strong>🖥️ Preview without the hardware</strong></summary>
+
+From the repository root, serve the frontend:
+
+```bash
+python3 -m http.server 8080 --directory frontend
+```
+
+Set `DEMO_MODE` to `true` in `frontend/home.js`, then open `http://localhost:8080/pages/home.html`. Demo mode generates random scores for layout previews. Set it back to `false` for live detection.
+
+</details>
+
+---
+
+## Project Notes 📝
+
+- The interface uses the name **NeuroGlasses**. Both live dashboards display the first face returned by the detector.
+- Expression scores represent the model's predictions; a facial expression alone does not establish what someone feels.
+- Sign-in and sign-up are demonstration screens that navigate to Home. Account authentication and database storage are outside the delivered scope.
+- The trained model weights must be supplied separately to run live detection.
