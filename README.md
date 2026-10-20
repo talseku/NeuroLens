@@ -179,7 +179,7 @@ Set `DEMO_MODE` to `true` in `frontend/home.js`, then open `http://localhost:808
 
 ## Project Notes 📝
 
-- The interface uses the name **NeuroGlasses**. Both live dashboards display the first face returned by the detector.
+- Both live dashboards display the first face returned by the detector.
 - Expression scores represent the model's predictions; a facial expression alone does not establish what someone feels.
 - Sign-in and sign-up are demonstration screens that navigate to Home. Account authentication and database storage are outside the delivered scope.
 - The trained model weights must be supplied separately to run live detection.
