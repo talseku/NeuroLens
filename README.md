@@ -1,4 +1,4 @@
-<h1 align="center">👓 NeuroLens 👓</h1>
+<h1 align="center"> NeuroLens </h1>
 
 <p align="center">
 Facial expressions are a small part of a conversation, but they can carry a lot of meaning. For neurodivergent individuals, especially younger users, interpreting those cues while following a conversation can be challenging. NeuroLens is an assistive smart glasses project that uses computer vision to make facial expressions easier to recognize. A Raspberry Pi camera captures faces, an emotion recognition model analyzes their expressions, and a companion web app presents the results through simple emojis, colors, and percentage scores.
